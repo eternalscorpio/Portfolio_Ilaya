@@ -84,10 +84,12 @@ function TagSphere() {
       ref={containerRef}
       onMouseEnter={() => setHoverPause(true)}
       onMouseLeave={() => setHoverPause(false)}
+      className="tag-sphere-wrap"
       style={{
         position: 'relative',
-        width: '350px',
-        height: '350px',
+        width: '100%',
+        maxWidth: '350px',
+        aspectRatio: '1 / 1',
         margin: '0 auto',
       }}
     >

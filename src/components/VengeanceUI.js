@@ -338,7 +338,7 @@ export function CurvedText({ text, radius = 150, fontSize = 12, color = 'var(--g
       width={radius * 2 + 40}
       height={radius * 2 + 40}
       viewBox={`0 0 ${radius * 2 + 40} ${radius * 2 + 40}`}
-      style={{ overflow: 'visible' }}
+      style={{ overflow: 'hidden', maxWidth: '100%', height: 'auto' }}
     >
       <defs>
         <path

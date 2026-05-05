@@ -8,8 +8,8 @@ function HolographicRing() {
   return (
     <div onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
       className="holo-ring"
-      style={{ position: 'relative', width: '280px', height: '280px', margin: '0 auto' }}>
-      <div style={{ position: 'absolute', inset: '-40px', opacity: 0.3, animation: 'rotate 25s linear infinite' }}>
+      style={{ position: 'relative', width: '100%', maxWidth: '280px', aspectRatio: '1 / 1', margin: '0 auto' }}>
+      <div style={{ position: 'absolute', inset: '-40px', opacity: 0.3, animation: 'rotate 25s linear infinite', overflow: 'hidden' }}>
         <CurvedText text="  DEVELOPER · ARCHITECT · CREATOR · ENGINEER  " radius={170} fontSize={9} color="var(--gold)" speed={30} />
       </div>
       <div style={{ position: 'absolute', inset: '0', borderRadius: '50%', border: `1px solid rgba(201,168,76,${hovered ? 0.4 : 0.15})`, animation: 'rotate 12s linear infinite', transition: 'border-color 0.5s' }}>

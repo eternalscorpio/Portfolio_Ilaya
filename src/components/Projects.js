@@ -194,8 +194,8 @@ function ImmersiveCard({ project, index }) {
           </div>
 
           {/* Project name */}
-          <h3 style={{
-            fontFamily: 'var(--font-display)', fontSize: '32px',
+          <h3 className="project-card-title" style={{
+            fontFamily: 'var(--font-display)', fontSize: 'clamp(22px, 4vw, 32px)',
             letterSpacing: '0.04em', color: 'var(--white)',
             marginBottom: '2px', lineHeight: 1.1,
           }}>

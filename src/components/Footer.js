@@ -9,7 +9,7 @@ export default function Footer() {
     <footer style={{
       background: 'var(--navy-2)',
       borderTop: '1px solid var(--navy-border)',
-      padding: '64px 48px 48px',
+      padding: '64px 20px 48px',
       position: 'relative',
       overflow: 'hidden',
     }}>

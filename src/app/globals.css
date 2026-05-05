@@ -42,6 +42,7 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -53,6 +54,13 @@ body {
   overflow-x: hidden;
   cursor: none;
   -webkit-font-smoothing: antialiased;
+  width: 100%;
+  max-width: 100vw;
+}
+
+main {
+  overflow-x: hidden;
+  width: 100%;
 }
 
 img, video { max-width: 100%; height: auto; display: block; }
@@ -219,14 +227,9 @@ img, video { max-width: 100%; height: auto; display: block; }
   gap: 24px;
 }
 
-/* Timeline */
-.grid-timeline {
-  display: grid;
-  grid-template-columns: 1fr 60px 1fr;
-  gap: 0;
-  margin-bottom: 32px;
-  position: relative;
-}
+/* Timeline rows — toggled by media query */
+.timeline-desktop-row { display: grid; }
+.timeline-mobile-row { display: none !important; }
 
 /* 3-col experience stats */
 .grid-3col-stats {
@@ -408,7 +411,7 @@ img, video { max-width: 100%; height: auto; display: block; }
   .nav-drawer { display: flex; }
 
   /* Section */
-  .section { padding: var(--section-pad) 20px; overflow: visible; }
+  .section { padding: var(--section-pad) 20px; overflow-x: hidden; }
   .section-desc { max-width: 100%; margin-bottom: 28px; }
 
   /* All grids → single column */
@@ -421,12 +424,9 @@ img, video { max-width: 100%; height: auto; display: block; }
   .grid-hackathon { grid-template-columns: 1fr; }
   .grid-contact { grid-template-columns: 1fr; gap: 24px; }
 
-  /* Timeline: collapse to left-side only */
-  .grid-timeline {
-    grid-template-columns: 20px 1fr;
-    gap: 0;
-  }
-  .grid-timeline-left { display: none; }
+  /* Timeline: mobile single-column */
+  .timeline-desktop-row { display: none !important; }
+  .timeline-mobile-row { display: grid !important; }
 
   /* Community */
   .grid-community { flex-direction: column; align-items: stretch; }
@@ -438,21 +438,25 @@ img, video { max-width: 100%; height: auto; display: block; }
   /* Hero side decorations */
   .hero-side-text { display: none !important; }
   .hero-corner { display: none !important; }
+  .orbit-ring { display: none !important; }
 
   /* Holographic ring size */
-  .holo-ring { width: 220px !important; height: 220px !important; }
+  .holo-ring { max-width: 220px !important; }
 
   /* Tag sphere */
-  .tag-sphere-wrap { width: 260px !important; height: 260px !important; }
+  .tag-sphere-wrap { max-width: 260px !important; }
 
   /* Project card title */
   .project-card-title { font-size: 22px !important; }
 
+  /* Project stagger — remove offset on mobile */
+  .project-stagger { margin-top: 0 !important; }
+
   /* Skills data terminals row */
   .skills-terminals { grid-template-columns: repeat(2, 1fr) !important; }
 
-  /* Orbiting text ring */
-  .orbit-ring { display: none !important; }
+  /* Timeline: show left cards in right column */
+  .grid-timeline-right-mobile { display: block !important; }
 }
 
 /* ═══════════════════════════════════════════════
@@ -466,8 +470,8 @@ img, video { max-width: 100%; height: auto; display: block; }
   .nav-drawer a { font-size: 28px; gap: 20px; }
   .grid-3col-stats { grid-template-columns: 1fr; gap: 10px; }
   .grid-4col { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .holo-ring { width: 180px !important; height: 180px !important; }
-  .tag-sphere-wrap { width: 220px !important; height: 220px !important; }
+  .holo-ring { max-width: 180px !important; }
+  .tag-sphere-wrap { max-width: 220px !important; }
   .section-desc { font-size: 14px; }
   .btn-primary, .btn-secondary { padding: 12px 20px; font-size: 10px; }
 }

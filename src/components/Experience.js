@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { GlitchHeading, ScanDivider, HUDFrame, NeonCard, TextReveal, DataTerminal } from './VengeanceUI';
+import { GlitchHeading, ScanDivider, NeonCard, DataTerminal } from './VengeanceUI';
 
 const experiences = [
   {
@@ -51,7 +51,7 @@ const hackathons = [
     event: 'NASA Space Apps Challenge',
     entries: [
       {
-        award: 'Local People\u2019s Choice Award',
+        award: 'Local People\'s Choice Award',
         date: 'October 2022',
         role: 'Front-end Lead',
         project: '"On the Way to the Sun"',
@@ -76,119 +76,10 @@ const communityRoles = [
   { role: 'Vice President', org: 'AURCT Tech Community', period: 'Jun 2022 — May 2023', color: '#8B5CF6' },
 ];
 
-/* ─── TIMELINE NODE (Enhanced) ─── */
-function TimelineNode({ experience, index, isLast }) {
-  const nodeRef = useRef(null);
-  const [visible, setVisible] = useState(false);
-  const [hovered, setHovered] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) setVisible(true);
-    }, { threshold: 0.2 });
-    if (nodeRef.current) observer.observe(nodeRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  const isLeft = index % 2 === 0;
-
-  return (
-    <div
-      ref={nodeRef}
-      className="grid-timeline"
-      style={{ marginBottom: isLast ? '0' : '32px' }}
-    >
-      <div className="grid-timeline-left" style={{ display: 'flex', justifyContent: 'flex-end', paddingRight: '24px' }}>
-        {isLeft && (
-          <div
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-            style={{
-              width: '100%',
-              maxWidth: '420px',
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'translateX(0)' : 'translateX(-50px)',
-              transition: `all 0.8s cubic-bezier(0.23, 1, 0.32, 1) ${index * 0.15}s`,
-            }}
-          >
-            <NeonCard color={experience.color}>
-              <CardContent experience={experience} hovered={hovered} />
-            </NeonCard>
-          </div>
-        )}
-      </div>
-
-      {/* Center line + dot */}
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        position: 'relative',
-      }}>
-        {/* Dot */}
-        <div style={{
-          width: '18px', height: '18px',
-          borderRadius: '50%',
-          background: visible ? experience.color : 'var(--navy-card)',
-          border: `2px solid ${visible ? experience.color : 'var(--navy-border)'}`,
-          zIndex: 2,
-          marginTop: '24px',
-          transition: 'all 0.5s ease',
-          boxShadow: visible ? `0 0 20px ${experience.color}50` : 'none',
-          position: 'relative',
-        }}>
-          {/* Pulse ring */}
-          {visible && (
-            <div style={{
-              position: 'absolute', inset: '-6px',
-              borderRadius: '50%',
-              border: `1px solid ${experience.color}30`,
-              animation: 'pulse-glow 2s ease infinite',
-            }} />
-          )}
-        </div>
-        {/* Line below */}
-        {!isLast && (
-          <div style={{
-            width: '1px', flex: 1,
-            background: `linear-gradient(to bottom, ${experience.color}60, var(--navy-border))`,
-            marginTop: '4px',
-          }} />
-        )}
-      </div>
-
-      {/* Right content or empty */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'flex-start',
-        paddingLeft: '24px',
-      }}>
-        {!isLeft && (
-          <div
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-            style={{
-              width: '100%',
-              maxWidth: '420px',
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'translateX(0)' : 'translateX(50px)',
-              transition: `all 0.8s cubic-bezier(0.23, 1, 0.32, 1) ${index * 0.15}s`,
-            }}
-          >
-            <NeonCard color={experience.color}>
-              <CardContent experience={experience} hovered={hovered} />
-            </NeonCard>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
 /* ─── CARD CONTENT ─── */
-function CardContent({ experience, hovered }) {
+function CardContent({ experience }) {
   return (
-    <>
+    <div style={{ padding: '20px' }}>
       {/* Period */}
       <div style={{
         fontFamily: 'var(--font-mono)', fontSize: '10px',
@@ -203,7 +94,7 @@ function CardContent({ experience, hovered }) {
       {/* Title */}
       <h3 style={{
         fontFamily: 'var(--font-interface)', fontWeight: 700,
-        fontSize: '17px', letterSpacing: '0.04em',
+        fontSize: 'clamp(14px, 3vw, 17px)', letterSpacing: '0.04em',
         textTransform: 'uppercase', color: 'var(--white)',
         marginBottom: '4px', lineHeight: 1.3,
       }}>
@@ -227,35 +118,134 @@ function CardContent({ experience, hovered }) {
         {experience.description}
       </p>
 
-      {/* Achievements */}
-      <div style={{
-        display: 'flex', flexWrap: 'wrap', gap: '6px',
-        marginBottom: '16px',
-        maxHeight: hovered ? '100px' : '0px',
-        overflow: 'hidden',
-        opacity: hovered ? 1 : 0,
-        transition: 'all 0.4s ease',
-      }}>
-        {experience.achievements.map((a, i) => (
-          <span key={i} style={{
-            fontFamily: 'var(--font-mono)', fontSize: '9px',
-            letterSpacing: '0.06em', color: experience.color,
-            padding: '3px 8px',
-            background: `${experience.color}10`,
-            border: `1px solid ${experience.color}20`,
-          }}>
-            ✓ {a}
-          </span>
-        ))}
-      </div>
-
       {/* Tech tags */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
         {experience.tech.map((t) => (
           <span key={t} className="tag tag-gold">{t}</span>
         ))}
       </div>
-    </>
+    </div>
+  );
+}
+
+/* ─── TIMELINE NODE — Responsive ─── */
+function TimelineNode({ experience, index, isLast }) {
+  const nodeRef = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setVisible(true);
+    }, { threshold: 0.15 });
+    if (nodeRef.current) observer.observe(nodeRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const isLeft = index % 2 === 0;
+
+  const cardStyle = {
+    opacity: visible ? 1 : 0,
+    transition: `opacity 0.8s ease ${index * 0.15}s, transform 0.8s cubic-bezier(0.23,1,0.32,1) ${index * 0.15}s`,
+  };
+
+  const dot = (
+    <div style={{
+      display: 'flex', flexDirection: 'column', alignItems: 'center',
+    }}>
+      <div style={{
+        width: '16px', height: '16px', borderRadius: '50%', flexShrink: 0,
+        background: visible ? experience.color : 'var(--navy-card)',
+        border: `2px solid ${visible ? experience.color : 'var(--navy-border)'}`,
+        boxShadow: visible ? `0 0 16px ${experience.color}50` : 'none',
+        marginTop: '28px', zIndex: 2, transition: 'all 0.5s ease',
+        position: 'relative',
+      }}>
+        {visible && (
+          <div style={{
+            position: 'absolute', inset: '-5px', borderRadius: '50%',
+            border: `1px solid ${experience.color}30`,
+            animation: 'pulse-glow 2s ease infinite',
+          }} />
+        )}
+      </div>
+      {!isLast && (
+        <div style={{
+          width: '1px', flex: 1, marginTop: '4px',
+          background: `linear-gradient(to bottom, ${experience.color}60, var(--navy-border))`,
+        }} />
+      )}
+    </div>
+  );
+
+  return (
+    <div ref={nodeRef} style={{ marginBottom: isLast ? 0 : 32 }}>
+
+      {/* ── DESKTOP LAYOUT (alternating left/right) ── */}
+      <div className="timeline-desktop-row" style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 40px 1fr',
+        gap: 0,
+        alignItems: 'start',
+      }}>
+        {/* Left cell */}
+        <div style={{ paddingRight: '24px', paddingTop: '8px' }}>
+          {isLeft && (
+            <div style={{
+              ...cardStyle,
+              transform: visible ? 'translateX(0)' : 'translateX(-40px)',
+            }}>
+              <NeonCard color={experience.color}>
+                <CardContent experience={experience} />
+              </NeonCard>
+            </div>
+          )}
+        </div>
+
+        {/* Center dot + line */}
+        {dot}
+
+        {/* Right cell */}
+        <div style={{ paddingLeft: '24px', paddingTop: '8px' }}>
+          {!isLeft && (
+            <div style={{
+              ...cardStyle,
+              transform: visible ? 'translateX(0)' : 'translateX(40px)',
+            }}>
+              <NeonCard color={experience.color}>
+                <CardContent experience={experience} />
+              </NeonCard>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* ── MOBILE LAYOUT (always single column) ── */}
+      <div className="timeline-mobile-row" style={{
+        display: 'none',
+        gridTemplateColumns: '32px 1fr',
+        gap: 0,
+        alignItems: 'start',
+      }}>
+        {/* Left: dot + line */}
+        {dot}
+
+        {/* Right: card */}
+        <div style={{
+          paddingLeft: '16px', paddingTop: '8px',
+          ...cardStyle,
+          transform: visible ? 'translateX(0)' : 'translateX(20px)',
+        }}>
+          <div style={{
+            background: 'rgba(13,26,48,0.6)',
+            border: `1px solid ${experience.color}30`,
+            borderLeft: `3px solid ${experience.color}`,
+          }}>
+            <CardContent experience={experience} />
+          </div>
+        </div>
+      </div>
+
+    </div>
   );
 }
 
@@ -263,7 +253,6 @@ function CardContent({ experience, hovered }) {
 export default function Experience() {
   const sectionRef = useRef(null);
   const [visible, setVisible] = useState(false);
-  const [lineHeight, setLineHeight] = useState(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -272,20 +261,6 @@ export default function Experience() {
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    if (!visible) return;
-    let start = null;
-    const duration = 2500;
-    const animate = (ts) => {
-      if (!start) start = ts;
-      const progress = Math.min((ts - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setLineHeight(eased * 100);
-      if (progress < 1) requestAnimationFrame(animate);
-    };
-    requestAnimationFrame(animate);
-  }, [visible]);
 
   return (
     <section id="experience" ref={sectionRef} className="section" style={{ position: 'relative' }}>
@@ -302,17 +277,17 @@ export default function Experience() {
           </p>
         </div>
 
-        {/* Data terminal header strip */}
+        {/* Stats */}
         <div className="grid-3col-stats" style={{ marginBottom: '48px' }}>
-          <div className={`reveal-scale ${visible ? 'visible' : ''}`} style={{ transitionDelay: '0.3s' }}>
-            <DataTerminal label="Career Span" value="3Y+" color="var(--gold)" icon="◆" />
-          </div>
-          <div className={`reveal-scale ${visible ? 'visible' : ''}`} style={{ transitionDelay: '0.4s' }}>
-            <DataTerminal label="Roles Held" value="4" color="var(--cyan)" icon="◇" />
-          </div>
-          <div className={`reveal-scale ${visible ? 'visible' : ''}`} style={{ transitionDelay: '0.5s' }}>
-            <DataTerminal label="Technologies" value="15+" color="var(--purple)" icon="○" />
-          </div>
+          {[
+            { label: 'Career Span', value: '3Y+', color: 'var(--gold)', icon: '◆' },
+            { label: 'Roles Held', value: '4', color: 'var(--cyan)', icon: '◇' },
+            { label: 'Technologies', value: '15+', color: 'var(--purple)', icon: '○' },
+          ].map((stat, i) => (
+            <div key={i} className={`reveal-scale ${visible ? 'visible' : ''}`} style={{ transitionDelay: `${0.3 + i * 0.1}s` }}>
+              <DataTerminal label={stat.label} value={stat.value} color={stat.color} icon={stat.icon} />
+            </div>
+          ))}
         </div>
 
         {/* Timeline */}
@@ -327,19 +302,19 @@ export default function Experience() {
           ))}
         </div>
 
-        {/* Hackathons Section */}
+        {/* Hackathons */}
         <div style={{ marginTop: '64px' }}>
           <div style={{ textAlign: 'center', marginBottom: '32px' }}>
             <div className="section-eyebrow" style={{ justifyContent: 'center' }}>Hackathons</div>
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(24px, 3vw, 40px)', letterSpacing: '0.06em', color: 'var(--white)' }}>NASA SPACE APPS CHALLENGE</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(22px, 3vw, 40px)', letterSpacing: '0.06em', color: 'var(--white)' }}>NASA SPACE APPS CHALLENGE</div>
           </div>
           <div className="grid-hackathon">
             {hackathons[0].entries.map((entry, i) => (
               <div key={i} className={`reveal ${visible ? 'visible' : ''}`} style={{ transitionDelay: `${0.3 + i * 0.2}s` }}>
-                <div style={{ position: 'relative', background: 'rgba(13, 26, 48, 0.5)', border: `1px solid ${entry.color}30`, padding: '28px', backdropFilter: 'blur(12px)' }}>
+                <div style={{ position: 'relative', background: 'rgba(13, 26, 48, 0.5)', border: `1px solid ${entry.color}30`, padding: '24px', backdropFilter: 'blur(12px)', height: '100%' }}>
                   <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: `linear-gradient(90deg, transparent, ${entry.color}, transparent)` }} />
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.12em', color: entry.color, marginBottom: '10px', textTransform: 'uppercase' }}>🏆 {entry.award}</div>
-                  <div style={{ fontFamily: 'var(--font-interface)', fontWeight: 700, fontSize: '13px', color: 'var(--white)', marginBottom: '4px', letterSpacing: '0.04em' }}>{entry.project}</div>
+                  <div style={{ fontFamily: 'var(--font-interface)', fontWeight: 700, fontSize: 'clamp(12px, 2vw, 14px)', color: 'var(--white)', marginBottom: '6px', letterSpacing: '0.04em' }}>{entry.project}</div>
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--muted)', marginBottom: '12px' }}>{entry.role} · {entry.date}</div>
                   <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--muted)', lineHeight: 1.6 }}>{entry.tech}</div>
                 </div>
@@ -355,7 +330,14 @@ export default function Experience() {
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>
             {communityRoles.map((role, i) => (
-              <div key={i} className={`reveal-scale community-card ${visible ? 'visible' : ''}`} style={{ transitionDelay: `${0.2 + i * 0.15}s`, flex: '1', minWidth: '220px', maxWidth: '320px', background: 'rgba(13,26,48,0.5)', border: `1px solid ${role.color}25`, padding: '20px 24px', position: 'relative' }}>
+              <div key={i} className={`reveal-scale ${visible ? 'visible' : ''}`}
+                style={{
+                  transitionDelay: `${0.2 + i * 0.15}s`,
+                  flex: '1', minWidth: '200px', maxWidth: '340px',
+                  background: 'rgba(13,26,48,0.5)',
+                  border: `1px solid ${role.color}25`,
+                  padding: '20px 24px', position: 'relative',
+                }}>
                 <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: `linear-gradient(90deg, transparent, ${role.color}60, transparent)` }} />
                 <div style={{ fontFamily: 'var(--font-interface)', fontWeight: 700, fontSize: '13px', color: 'var(--white)', marginBottom: '4px' }}>{role.role}</div>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: role.color, marginBottom: '4px' }}>{role.org}</div>
@@ -364,14 +346,17 @@ export default function Experience() {
             ))}
           </div>
         </div>
+
       </div>
 
       <style jsx>{`
+        .timeline-desktop-row { display: grid; }
+        .timeline-mobile-row { display: none !important; }
+
         @media (max-width: 768px) {
-          .grid-timeline { grid-template-columns: 20px 1fr !important; }
-          .grid-timeline-left { display: none !important; }
+          .timeline-desktop-row { display: none !important; }
+          .timeline-mobile-row { display: grid !important; }
           .grid-3col-stats { grid-template-columns: repeat(3, 1fr) !important; }
-          .community-card { min-width: unset !important; max-width: 100% !important; }
         }
         @media (max-width: 480px) {
           .grid-3col-stats { grid-template-columns: 1fr !important; }

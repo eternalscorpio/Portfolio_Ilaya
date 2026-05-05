@@ -111,7 +111,9 @@ function OrbitingText() {
       position: 'absolute', top: '50%', left: '50%',
       transform: 'translate(-50%, -50%)',
       width: '550px', height: '550px',
+      maxWidth: '90vw', maxHeight: '90vw',
       opacity: 0.15, pointerEvents: 'none',
+      overflow: 'hidden',
     }}>
       <div style={{ animation: 'rotate 30s linear infinite' }}>
         <CurvedText
@@ -169,7 +171,7 @@ export default function Hero() {
         position: 'relative',
         width: '100%',
         height: '100vh',
-        minHeight: '700px',
+        minHeight: '600px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

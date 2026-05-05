@@ -272,12 +272,12 @@ function ContactInfoPanel() {
               <div style={{ width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px solid ${contact.color}30`, fontFamily: 'var(--font-mono)', fontSize: '14px', color: contact.color }}>
                 {contact.icon}
               </div>
-              <div>
+              <div style={{ minWidth: 0, overflow: 'hidden' }}>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.12em', textTransform: 'uppercase', color: contact.color, marginBottom: '2px' }}>
                   {contact.label}
                 </div>
                 {contact.href ? (
-                  <a href={contact.href} target="_blank" rel="noopener noreferrer" style={{ fontSize: '13px', color: 'var(--white)', textDecoration: 'none' }}>
+                  <a href={contact.href} target="_blank" rel="noopener noreferrer" style={{ fontSize: '13px', color: 'var(--white)', textDecoration: 'none', wordBreak: 'break-all' }}>
                     {contact.value}
                   </a>
                 ) : (
