@@ -8,18 +8,47 @@ function TerminalForm() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [charCount, setCharCount] = useState(0);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
   const [typedChars, setTypedChars] = useState(0);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: '', email: '', message: '' });
-      setCharCount(0);
-      setTypedChars(0);
-    }, 3000);
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "YOUR_ACCESS_KEY_HERE",
+          ...formData,
+        }),
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        setSubmitted(true);
+        setTimeout(() => {
+          setSubmitted(false);
+          setFormData({ name: '', email: '', message: '' });
+          setCharCount(0);
+          setTypedChars(0);
+        }, 3000);
+      } else {
+        console.error("Form submission failed:", result);
+        alert("Something went wrong! Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Something went wrong! Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (field, value) => {
@@ -180,15 +209,18 @@ function TerminalForm() {
 
         <button
           type="submit"
+          disabled={isSubmitting}
           className="btn-primary"
           style={{
             width: '100%', justifyContent: 'center', padding: '16px',
             fontFamily: 'var(--font-mono)',
             border: submitted ? '1px solid var(--green)' : undefined,
             color: submitted ? 'var(--green)' : undefined,
+            opacity: isSubmitting ? 0.7 : 1,
+            cursor: isSubmitting ? 'wait' : 'pointer'
           }}
         >
-          {submitted ? '◆ TRANSMISSION SUCCESSFUL' : '◆ SEND TRANSMISSION →'}
+          {submitted ? '◆ TRANSMISSION SUCCESSFUL' : isSubmitting ? '◆ TRANSMITTING...' : '◆ SEND TRANSMISSION →'}
         </button>
 
         <div style={{
