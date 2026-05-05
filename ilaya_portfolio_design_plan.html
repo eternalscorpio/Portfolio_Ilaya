@@ -1,0 +1,2140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ilayabharathi — Portfolio Design Plan</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C96A;
+      --gold-dim: #7A6230;
+      --navy: #050C1A;
+      --navy-2: #080F20;
+      --navy-3: #0B1428;
+      --navy-card: #0D1A30;
+      --navy-border: #162240;
+      --cyan: #00D4FF;
+      --cyan-dim: #007A9A;
+      --purple: #8B5CF6;
+      --green: #10B981;
+      --coral: #FF6B6B;
+      --white: #F0EDE4;
+      --muted: #8892AA;
+      --faint: #2A3A5C;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--navy-2);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold-dim);
+      border-radius: 2px;
+    }
+
+    /* ─── HEADER ─── */
+    .doc-header {
+      background: linear-gradient(135deg, var(--navy-2) 0%, #0A1628 50%, #06101E 100%);
+      border-bottom: 1px solid var(--navy-border);
+      padding: 60px 60px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-header::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .doc-header::after {
+      content: '';
+      position: absolute;
+      bottom: -60px;
+      left: -60px;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(0, 212, 255, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 2px;
+      border: 1px solid;
+    }
+
+    .badge-gold {
+      border-color: var(--gold-dim);
+      color: var(--gold);
+      background: rgba(201, 168, 76, 0.06);
+    }
+
+    .badge-cyan {
+      border-color: var(--cyan-dim);
+      color: var(--cyan);
+      background: rgba(0, 212, 255, 0.06);
+    }
+
+    .badge-purple {
+      border-color: #4c3580;
+      color: var(--purple);
+      background: rgba(139, 92, 246, 0.06);
+    }
+
+    .badge-green {
+      border-color: #0d6644;
+      color: var(--green);
+      background: rgba(16, 185, 129, 0.06);
+    }
+
+    .badge-coral {
+      border-color: #8a2020;
+      color: var(--coral);
+      background: rgba(255, 107, 107, 0.06);
+    }
+
+    .doc-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(42px, 6vw, 80px);
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .doc-title span {
+      color: var(--gold);
+    }
+
+    .doc-subtitle {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 18px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+    }
+
+    .doc-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--gold-dim);
+    }
+
+    .doc-meta span {
+      color: var(--gold);
+    }
+
+    /* ─── NAV ─── */
+    .toc {
+      background: var(--navy-card);
+      border-bottom: 1px solid var(--navy-border);
+      padding: 0 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      overflow-x: auto;
+      display: flex;
+      gap: 0;
+    }
+
+    .toc-item {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 16px 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .toc-item:hover,
+    .toc-item.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    /* ─── MAIN LAYOUT ─── */
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 60px;
+    }
+
+    /* ─── SECTIONS ─── */
+    .section {
+      padding: 72px 0;
+      border-bottom: 1px solid rgba(22, 34, 64, 0.6);
+    }
+
+    .section-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-eyebrow::after {
+      content: '';
+      flex: 0 0 40px;
+      height: 1px;
+      background: var(--gold-dim);
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(28px, 4vw, 48px);
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      max-width: 640px;
+      margin-bottom: 48px;
+      font-size: 15px;
+    }
+
+    /* ─── CARDS ─── */
+    .card-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .card-grid-2 {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .card-grid-3 {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .card {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 4px;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--gold-dim);
+      transform: translateY(-2px);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      color: rgba(201, 168, 76, 0.08);
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .icon-gold {
+      background: rgba(201, 168, 76, 0.1);
+    }
+
+    .icon-cyan {
+      background: rgba(0, 212, 255, 0.1);
+    }
+
+    .icon-purple {
+      background: rgba(139, 92, 246, 0.1);
+    }
+
+    .icon-green {
+      background: rgba(16, 185, 129, 0.1);
+    }
+
+    .icon-coral {
+      background: rgba(255, 107, 107, 0.1);
+    }
+
+    .card-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .card-body {
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      padding: 3px 8px;
+      border-radius: 2px;
+      text-transform: uppercase;
+    }
+
+    .tag-gold {
+      background: rgba(201, 168, 76, 0.08);
+      color: var(--gold);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+    }
+
+    .tag-cyan {
+      background: rgba(0, 212, 255, 0.08);
+      color: var(--cyan);
+      border: 1px solid rgba(0, 212, 255, 0.15);
+    }
+
+    .tag-purple {
+      background: rgba(139, 92, 246, 0.08);
+      color: var(--purple);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    .tag-green {
+      background: rgba(16, 185, 129, 0.08);
+      color: var(--green);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .tag-muted {
+      background: rgba(136, 146, 170, 0.06);
+      color: var(--muted);
+      border: 1px solid rgba(136, 146, 170, 0.12);
+    }
+
+    /* ─── TECH STACK TABLE ─── */
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .tech-table th {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 14px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--navy-border);
+    }
+
+    .tech-table td {
+      padding: 18px 20px;
+      font-size: 13.5px;
+      color: var(--muted);
+      border-bottom: 1px solid rgba(22, 34, 64, 0.4);
+      vertical-align: top;
+    }
+
+    .tech-table tr:hover td {
+      background: rgba(13, 26, 48, 0.6);
+    }
+
+    .tech-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .tech-role {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .complexity-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 3px;
+      background: var(--navy-border);
+      border-radius: 2px;
+      max-width: 100px;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 2px;
+    }
+
+    .bar-gold {
+      background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+    }
+
+    .bar-cyan {
+      background: linear-gradient(90deg, var(--cyan-dim), var(--cyan));
+    }
+
+    .bar-purple {
+      background: linear-gradient(90deg, #4c3580, var(--purple));
+    }
+
+    /* ─── SECTION WIREFRAME ─── */
+    .wireframe-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .wireframe-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .wireframe {
+      background: var(--navy-2);
+      border: 1px solid var(--navy-border);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .wireframe-header {
+      background: var(--navy-card);
+      border-bottom: 1px solid var(--navy-border);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .wireframe-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .wireframe-body {
+      padding: 24px 20px;
+    }
+
+    .wf-block {
+      background: rgba(201, 168, 76, 0.04);
+      border: 1px dashed rgba(201, 168, 76, 0.12);
+      border-radius: 2px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .wf-block.accent {
+      background: rgba(0, 212, 255, 0.04);
+      border-color: rgba(0, 212, 255, 0.12);
+    }
+
+    .wf-block.strong {
+      background: rgba(201, 168, 76, 0.08);
+      border-color: var(--gold-dim);
+      color: var(--gold);
+    }
+
+    .wf-block-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .wf-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .wf-row .wf-block {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    .wf-canvas {
+      height: 80px;
+      background: repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(201, 168, 76, 0.03) 19px, rgba(201, 168, 76, 0.03) 20px),
+        repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(201, 168, 76, 0.03) 19px, rgba(201, 168, 76, 0.03) 20px);
+      border: 1px dashed rgba(201, 168, 76, 0.1);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wf-canvas-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: rgba(201, 168, 76, 0.4);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .wf-canvas::before {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border: 1px solid rgba(201, 168, 76, 0.1);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ─── ANIMATION TIMELINE ─── */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold), var(--gold-dim) 60%, transparent);
+    }
+
+    .timeline-item {
+      margin-bottom: 36px;
+      position: relative;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -28px;
+      top: 4px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+    }
+
+    .timeline-dot.cyan {
+      background: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
+    }
+
+    .timeline-dot.purple {
+      background: var(--purple);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+    }
+
+    .timeline-dot.green {
+      background: var(--green);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+    }
+
+    .timeline-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .timeline-body {
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+
+    /* ─── PALETTE ─── */
+    .palette-row {
+      display: flex;
+      gap: 0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .swatch {
+      flex: 1;
+      padding: 24px 16px;
+      min-height: 80px;
+    }
+
+    .swatch-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .swatch-hex {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      opacity: 0.7;
+      margin-top: 4px;
+    }
+
+    /* ─── TYPOGRAPHY BLOCK ─── */
+    .type-demo {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 4px;
+      padding: 32px;
+      margin-bottom: 20px;
+    }
+
+    .type-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 12px;
+    }
+
+    .font-bebas {
+      font-family: 'Bebas Neue', sans-serif;
+    }
+
+    .font-outfit {
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .font-rajdhani {
+      font-family: 'Rajdhani', sans-serif;
+    }
+
+    .font-mono {
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ─── CODE BLOCK ─── */
+    .code-block {
+      background: #030810;
+      border: 1px solid var(--navy-border);
+      border-radius: 4px;
+      padding: 24px;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      line-height: 1.8;
+      color: #8892AA;
+      overflow-x: auto;
+      margin-bottom: 20px;
+    }
+
+    .code-block .kw {
+      color: var(--cyan);
+    }
+
+    .code-block .fn {
+      color: var(--gold);
+    }
+
+    .code-block .str {
+      color: var(--green);
+    }
+
+    .code-block .cm {
+      color: #3A4A68;
+    }
+
+    .code-block .num {
+      color: var(--purple);
+    }
+
+    /* ─── PERFORMANCE TABLE ─── */
+    .perf-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 24px;
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .perf-score {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      line-height: 1;
+      min-width: 52px;
+    }
+
+    .score-gold {
+      color: var(--gold);
+    }
+
+    .score-green {
+      color: var(--green);
+    }
+
+    .score-cyan {
+      color: var(--cyan);
+    }
+
+    .perf-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .perf-desc {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ─── INTERACTION MAP ─── */
+    .interaction-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .interaction-card {
+      background: var(--navy-2);
+      border: 1px solid var(--navy-border);
+      border-radius: 4px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .interaction-symbol {
+      font-size: 28px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .interaction-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .interaction-lib {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+    }
+
+    /* ─── DIVIDER ─── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--navy-border), transparent);
+      margin: 24px 0;
+    }
+
+    /* ─── SCROLL PROGRESS ─── */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--cyan));
+      z-index: 200;
+      transition: width 0.05s;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .doc-header {
+        padding: 40px 24px;
+      }
+
+      .content {
+        padding: 0 24px;
+      }
+
+      .toc {
+        padding: 0 24px;
+      }
+
+      .card-grid-3 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* ─── HIGHLIGHT ─── */
+    .hl {
+      color: var(--gold);
+    }
+
+    .hl-cyan {
+      color: var(--cyan);
+    }
+
+    .hl-purple {
+      color: var(--purple);
+    }
+
+    /* ─── SECTION ID ANCHORS ─── */
+    .anchor {
+      scroll-margin-top: 60px;
+    }
+
+    /* ─── PROJECT PILL ─── */
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .project-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 4px;
+      transition: border-color 0.2s;
+    }
+
+    .project-item:hover {
+      border-color: var(--gold-dim);
+    }
+
+    .project-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .project-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--white);
+    }
+
+    .project-url {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .project-tech {
+      margin-left: auto;
+      display: flex;
+      gap: 6px;
+    }
+
+    /* ─── FEATURE FLAG ─── */
+    .feature-flag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(201, 168, 76, 0.06);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      border-radius: 2px;
+      margin: 6px 6px 6px 0;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+    }
+
+    .feature-flag::before {
+      content: '▸';
+      font-size: 8px;
+    }
+
+    /* ─── GLOW HEADER ACCENT ─── */
+    .glow-line {
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-dim) 40%, transparent);
+      margin-bottom: 48px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="scroll-progress" id="prog"></div>
+
+  <!-- HEADER -->
+  <header class="doc-header">
+    <div class="badge-row">
+      <span class="badge badge-gold">Design Plan v1.0</span>
+      <span class="badge badge-cyan">Three.js · Anime.js</span>
+      <span class="badge badge-purple">VengeanceUI · Motion</span>
+      <span class="badge badge-green">NextGen 3D Portfolio</span>
+      <span class="badge badge-coral">Parallax · GSAP</span>
+    </div>
+    <h1 class="doc-title">ILAYA<span>BHARATHI</span><br>PORTFOLIO</h1>
+    <p class="doc-subtitle">Full Stack Developer — MERN &amp; Python · Design Architecture</p>
+    <div class="doc-meta">
+      <div>CLIENT <span>Ilayabharathi</span></div>
+      <div>STACK <span>Three.js / Anime.js / GSAP / Motion</span></div>
+      <div>STYLE <span>NextGen 3D Immersive</span></div>
+      <div>SECTIONS <span>7 Core Sections</span></div>
+      <div>PAGES <span>Single Page App</span></div>
+    </div>
+  </header>
+
+  <!-- TOC -->
+  <nav class="toc" id="toc">
+    <div class="toc-item active" onclick="scrollTo('vision')">01 Vision</div>
+    <div class="toc-item" onclick="scrollTo('techstack')">02 Tech Stack</div>
+    <div class="toc-item" onclick="scrollTo('sections')">03 Sections</div>
+    <div class="toc-item" onclick="scrollTo('animations')">04 Animations</div>
+    <div class="toc-item" onclick="scrollTo('palette')">05 Palette</div>
+    <div class="toc-item" onclick="scrollTo('typography')">06 Typography</div>
+    <div class="toc-item" onclick="scrollTo('performance')">07 Performance</div>
+    <div class="toc-item" onclick="scrollTo('architecture')">08 Architecture</div>
+  </nav>
+
+  <div class="content">
+
+    <!-- ─────────────────────────────── 01 VISION ─────────────────────────────── -->
+    <section class="section anchor" id="vision">
+      <div class="section-eyebrow">01 — Creative Vision</div>
+      <h2 class="section-title">THE CONCEPT</h2>
+      <p class="section-desc">A digital identity that merges cinematic depth, spatial computing aesthetics, and
+        developer craftsmanship — positioning Ilayabharathi not just as a coder, but as a <span class="hl">digital
+          architect</span>.</p>
+
+      <div class="card-grid card-grid-3">
+        <div class="card">
+          <div class="card-num">01</div>
+          <div class="card-icon icon-gold">🌌</div>
+          <div class="card-title">DEEP SPACE AESTHETIC</div>
+          <div class="card-body">Dark cosmic environment with floating 3D elements, particle constellations, and depth
+            of field — like navigating a digital universe. Every scroll is a journey.</div>
+          <div class="card-tags">
+            <span class="tag tag-gold">Three.js</span>
+            <span class="tag tag-cyan">WebGL</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-num">02</div>
+          <div class="card-icon icon-cyan">⚡</div>
+          <div class="card-title">KINETIC IDENTITY</div>
+          <div class="card-body">Motion is not decoration — it is communication. Every element animates with purpose:
+            staggered reveals, magnetic hover states, and scroll-driven 3D transformations.</div>
+          <div class="card-tags">
+            <span class="tag tag-cyan">Anime.js</span>
+            <span class="tag tag-purple">GSAP ScrollTrigger</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-num">03</div>
+          <div class="card-icon icon-purple">🔮</div>
+          <div class="card-title">VENGEANCE UI LAYER</div>
+          <div class="card-body">Cyberpunk-adjacent glassmorphism with sharp geometric borders, scanline overlays, and
+            data-terminal typography that signals bleeding-edge technical mastery.</div>
+          <div class="card-tags">
+            <span class="tag tag-purple">VengeanceUI</span>
+            <span class="tag tag-gold">CSS3</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-num">04</div>
+          <div class="card-icon icon-green">🌊</div>
+          <div class="card-title">PARALLAX DEPTH</div>
+          <div class="card-body">Multi-layer parallax with distinct z-axis speeds creates genuine spatial depth —
+            background stars, midground geometry, foreground text all move at mathematically precise rates.</div>
+          <div class="card-tags">
+            <span class="tag tag-green">Parallax.js</span>
+            <span class="tag tag-gold">GSAP</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-num">05</div>
+          <div class="card-icon icon-coral">🎯</div>
+          <div class="card-title">MOTION FRAMEWORK</div>
+          <div class="card-body">Framer Motion / Motion One orchestrates page-wide choreography — entrance animations,
+            exit transitions, layout animations, and spring physics for micro-interactions.</div>
+          <div class="card-tags">
+            <span class="tag tag-gold">Motion One</span>
+            <span class="tag tag-muted">Spring Physics</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-num">06</div>
+          <div class="card-icon icon-gold">🖱️</div>
+          <div class="card-title">REACTIVE CANVAS</div>
+          <div class="card-body">Mouse/cursor position drives subtle 3D camera tilt on the hero, magnetic snap on
+            buttons, and particle repulsion — making the entire page physically responsive to presence.</div>
+          <div class="card-tags">
+            <span class="tag tag-cyan">Mouse Events</span>
+            <span class="tag tag-purple">Three.js</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────── 02 TECH STACK ─────────────────────────────── -->
+    <section class="section anchor" id="techstack">
+      <div class="section-eyebrow">02 — Technology Matrix</div>
+      <h2 class="section-title">FULL TECH STACK</h2>
+      <p class="section-desc">Six distinct layers of technology, each with a specific role — combined into a single
+        unified rendering pipeline.</p>
+
+      <table class="tech-table">
+        <thead>
+          <tr>
+            <th>Library</th>
+            <th>Role in Portfolio</th>
+            <th>Key Features Used</th>
+            <th>Weight</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="tech-name">Three.js</div>
+              <div class="tech-role">3D Engine Layer</div>
+            </td>
+            <td>Hero WebGL scene, floating project cards in 3D space, rotating DNA-like skill helix, particle galaxy
+              background</td>
+            <td>
+              <span class="tag tag-cyan">WebGLRenderer</span>
+              <span class="tag tag-cyan">PerspectiveCamera</span>
+              <span class="tag tag-cyan">BufferGeometry</span>
+              <span class="tag tag-cyan">ShaderMaterial</span>
+            </td>
+            <td>
+              <div class="complexity-bar">
+                <div class="bar-track">
+                  <div class="bar-fill bar-cyan" style="width:90%"></div>
+                </div>
+                <span style="font-size:11px;color:var(--cyan)">90%</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="tech-name">Anime.js</div>
+              <div class="tech-role">DOM Animation Engine</div>
+            </td>
+            <td>Text character-by-character reveal, SVG path morphing, counter increments, staggered card entrances,
+              timeline orchestration</td>
+            <td>
+              <span class="tag tag-gold">timeline()</span>
+              <span class="tag tag-gold">stagger()</span>
+              <span class="tag tag-gold">SVG morphing</span>
+              <span class="tag tag-gold">keyframes</span>
+            </td>
+            <td>
+              <div class="complexity-bar">
+                <div class="bar-track">
+                  <div class="bar-fill bar-gold" style="width:80%"></div>
+                </div>
+                <span style="font-size:11px;color:var(--gold)">80%</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="tech-name">GSAP + ScrollTrigger</div>
+              <div class="tech-role">Scroll Animation Engine</div>
+            </td>
+            <td>Section reveal choreography, parallax layers, pinned scroll sections, scroll-synced 3D camera movement,
+              progress bars</td>
+            <td>
+              <span class="tag tag-purple">ScrollTrigger</span>
+              <span class="tag tag-purple">gsap.to()</span>
+              <span class="tag tag-purple">SplitText</span>
+              <span class="tag tag-purple">pin: true</span>
+            </td>
+            <td>
+              <div class="complexity-bar">
+                <div class="bar-track">
+                  <div class="bar-fill bar-purple" style="width:85%"></div>
+                </div>
+                <span style="font-size:11px;color:var(--purple)">85%</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="tech-name">Motion One / Framer</div>
+              <div class="tech-role">React Motion Framework</div>
+            </td>
+            <td>Component entrance/exit, layout animations, drag interactions on project cards, spring physics on hover
+              effects</td>
+            <td>
+              <span class="tag tag-green">animate()</span>
+              <span class="tag tag-green">inView()</span>
+              <span class="tag tag-green">spring()</span>
+              <span class="tag tag-green">layout</span>
+            </td>
+            <td>
+              <div class="complexity-bar">
+                <div class="bar-track">
+                  <div class="bar-fill bar-gold" style="width:70%"></div>
+                </div>
+                <span style="font-size:11px;color:var(--gold)">70%</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="tech-name">VengeanceUI</div>
+              <div class="tech-role">Design System / UI Kit</div>
+            </td>
+            <td>Glassmorphism components, scanline overlays, geometric corner decorations, data-terminal readouts,
+              neon-border cards</td>
+            <td>
+              <span class="tag tag-muted">GlassCard</span>
+              <span class="tag tag-muted">NeonBorder</span>
+              <span class="tag tag-muted">ScanlineOverlay</span>
+              <span class="tag tag-muted">DataTerminal</span>
+            </td>
+            <td>
+              <div class="complexity-bar">
+                <div class="bar-track">
+                  <div class="bar-fill bar-cyan" style="width:65%"></div>
+                </div>
+                <span style="font-size:11px;color:var(--cyan)">65%</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="tech-name">Parallax.js / Rellax</div>
+              <div class="tech-role">Parallax Controller</div>
+            </td>
+            <td>3-layer parallax depth on all sections, mouse-tilt 3D perspective on cards, background star field at
+              different speeds</td>
+            <td>
+              <span class="tag tag-gold">data-depth</span>
+              <span class="tag tag-gold">layers</span>
+              <span class="tag tag-gold">tilt.js</span>
+            </td>
+            <td>
+              <div class="complexity-bar">
+                <div class="bar-track">
+                  <div class="bar-fill bar-gold" style="width:60%"></div>
+                </div>
+                <span style="font-size:11px;color:var(--gold)">60%</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ─────────────────────────────── 03 SECTIONS ─────────────────────────────── -->
+    <section class="section anchor" id="sections">
+      <div class="section-eyebrow">03 — Section Blueprint</div>
+      <h2 class="section-title">PAGE ARCHITECTURE</h2>
+      <p class="section-desc">Seven carefully designed sections, each with a unique 3D environment, animation strategy,
+        and interaction model.</p>
+
+      <!-- HERO -->
+      <div style="margin-bottom: 48px;">
+        <div style="display:flex; align-items:center; gap: 16px; margin-bottom: 20px;">
+          <span class="badge badge-gold">SECTION 01</span>
+          <div class="tech-name" style="font-size:18px;">HERO — COSMIC INTRODUCTION</div>
+        </div>
+        <div class="wireframe-grid">
+          <div class="wireframe">
+            <div class="wireframe-header">
+              <span class="wireframe-label">Layout Blueprint</span>
+              <span class="tag tag-gold">Full Viewport</span>
+            </div>
+            <div class="wireframe-body">
+              <div class="wf-canvas">
+                <span class="wf-canvas-label">THREE.JS WEBGL CANVAS — PARTICLE GALAXY</span>
+              </div>
+              <div class="wf-block strong">
+                <div class="wf-block-title">Hero Text Layer</div>
+                ILAYABHARATHI · CHARACTER-BY-CHARACTER REVEAL · ANIME.JS
+              </div>
+              <div class="wf-block accent">
+                <div class="wf-block-title">Subtitle + Typewriter</div>
+                Full Stack Developer — MERN &amp; Python · Cycling roles
+              </div>
+              <div class="wf-row">
+                <div class="wf-block" style="text-align:center">[ View Work ]</div>
+                <div class="wf-block" style="text-align:center">[ Contact Me ]</div>
+              </div>
+              <div class="wf-block">↓ SCROLL INDICATOR · Animated bouncing arrow</div>
+            </div>
+          </div>
+          <div class="wireframe">
+            <div class="wireframe-header">
+              <span class="wireframe-label">3D Scene Specification</span>
+              <span class="tag tag-cyan">Three.js</span>
+            </div>
+            <div class="wireframe-body">
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-title">Particle Galaxy</div>
+                  <div class="timeline-body">8,000+ BufferGeometry particles forming a rotating spiral galaxy. Gold and
+                    cyan color distribution based on distance from center.</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot cyan"></div>
+                  <div class="timeline-title">Mouse Parallax Camera</div>
+                  <div class="timeline-body">Camera subtly tilts ±5° based on mouse X/Y position. Lerp smoothing for
+                    cinematic feel. requestAnimationFrame loop.</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot purple"></div>
+                  <div class="timeline-title">Floating Geometric Forms</div>
+                  <div class="timeline-body">Icosahedron + Torus geometry with wireframe MeshBasicMaterial slowly
+                    rotating on Y and X axes. Gold outline shader.</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot green"></div>
+                  <div class="timeline-title">Scroll → Camera Pull-back</div>
+                  <div class="timeline-body">GSAP ScrollTrigger moves camera.position.z from 5 → 25 as user scrolls,
+                    revealing the full galaxy. Cinematic zoom-out effect.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 16px; display:flex; flex-wrap:wrap; gap: 8px;">
+          <span class="feature-flag">Custom gold cursor with trail</span>
+          <span class="feature-flag">Glitch text effect on name</span>
+          <span class="feature-flag">GSAP SplitText stagger reveal</span>
+          <span class="feature-flag">Mouse magnetic buttons</span>
+          <span class="feature-flag">Scroll progress indicator</span>
+          <span class="feature-flag">Audio-reactive option (optional)</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ABOUT -->
+      <div style="margin-bottom: 48px;">
+        <div style="display:flex; align-items:center; gap: 16px; margin-bottom: 20px;">
+          <span class="badge badge-cyan">SECTION 02</span>
+          <div class="tech-name" style="font-size:18px;">ABOUT — DIGITAL IDENTITY CHAMBER</div>
+        </div>
+        <div class="wireframe-grid">
+          <div class="wireframe">
+            <div class="wireframe-header">
+              <span class="wireframe-label">Layout Blueprint</span>
+              <span class="tag tag-cyan">Split Layout</span>
+            </div>
+            <div class="wireframe-body">
+              <div class="wf-row">
+                <div style="flex:1">
+                  <div class="wf-canvas" style="height:120px;">
+                    <span class="wf-canvas-label">3D AVATAR / HOLOGRAM RING</span>
+                  </div>
+                  <div class="wf-block" style="font-size:11px;text-align:center">Rotating rings · Particle halo</div>
+                </div>
+                <div style="flex:1.4; padding-left:10px;">
+                  <div class="wf-block strong">
+                    <div class="wf-block-title">Name + Title</div>
+                    ILAYABHARATHI · FULL STACK DEV
+                  </div>
+                  <div class="wf-block">Bio paragraph · Kinetic text reveal</div>
+                  <div class="wf-block accent">
+                    <div class="wf-block-title">Location Badge</div>
+                    Tamil Nadu, India — Remote Worldwide
+                  </div>
+                  <div class="wf-row">
+                    <div class="wf-block" style="font-size:11px">Years Exp</div>
+                    <div class="wf-block" style="font-size:11px">Projects</div>
+                    <div class="wf-block" style="font-size:11px">Clients</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wireframe">
+            <div class="wireframe-header">
+              <span class="wireframe-label">Animation Detail</span>
+              <span class="tag tag-cyan">Anime.js + Three.js</span>
+            </div>
+            <div class="wireframe-body">
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot cyan"></div>
+                  <div class="timeline-title">Holographic Avatar Ring</div>
+                  <div class="timeline-body">Three.js TorusGeometry rings orbiting a center sphere. Phong material with
+                    gold emissive glow. Mouse hover tilts the orbital plane.</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-title">Stat Counter Anime.js</div>
+                  <div class="timeline-body">anime({ targets: '.stat', value: [0, endVal], round: 1, easing:
+                    'easeOutExpo', duration: 2000 }) triggered by IntersectionObserver.</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot green"></div>
+                  <div class="timeline-title">Parallax Bio Text</div>
+                  <div class="timeline-body">3-speed parallax: background mesh moves at 0.3x scroll speed, text at 0.7x,
+                    decorative border at 1.2x — creating depth illusion.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- SKILLS -->
+      <div style="margin-bottom: 48px;">
+        <div style="display:flex; align-items:center; gap: 16px; margin-bottom: 20px;">
+          <span class="badge badge-purple">SECTION 03</span>
+          <div class="tech-name" style="font-size:18px;">SKILLS — 3D TECH CONSTELLATION</div>
+        </div>
+        <div class="wireframe-grid">
+          <div class="wireframe">
+            <div class="wireframe-header">
+              <span class="wireframe-label">Layout Blueprint</span>
+              <span class="tag tag-purple">Full Width 3D</span>
+            </div>
+            <div class="wireframe-body">
+              <div class="wf-canvas" style="height:140px;">
+                <span class="wf-canvas-label">THREE.JS SKILL SPHERE — INTERACTIVE ORBIT</span>
+              </div>
+              <div class="wf-block strong">MERN · Python · DSC · Gov Services</div>
+              <div class="wf-row">
+                <div class="wf-block accent">Frontend Layer</div>
+                <div class="wf-block accent">Backend Layer</div>
+                <div class="wf-block accent">Tools Layer</div>
+              </div>
+            </div>
+          </div>
+          <div class="wireframe">
+            <div class="wireframe-header">
+              <span class="wireframe-label">3D Skill Sphere Spec</span>
+              <span class="tag tag-purple">Three.js Sphere</span>
+            </div>
+            <div class="wireframe-body">
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot purple"></div>
+                  <div class="timeline-title">Tag Cloud Sphere</div>
+                  <div class="timeline-body">Skills rendered as HTML labels distributed on a sphere using spherical
+                    coordinates. Auto-rotates on Y axis. Click to highlight category clusters.</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-title">Skill Progress Bars</div>
+                  <div class="timeline-body">VengeanceUI data-bar components with neon fill animation via Anime.js.
+                    Triggered when section enters viewport. Width animates from 0 → value.</div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-dot cyan"></div>
+                  <div class="timeline-title">Category Glow Rings</div>
+                  <div class="timeline-body">Three.js ring geometry separating MERN, Python, Tally/Sigma categories with
+                    gold/cyan/purple color coding. Hover brightens emissive intensity.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:16px; display:flex; flex-wrap:wrap;">
+          <span class="feature-flag">React · Node.js · Express · MongoDB</span>
+          <span class="feature-flag">Python · Flask · FastAPI</span>
+          <span class="feature-flag">Tally · Sigma · Vyapar</span>
+          <span class="feature-flag">DSC · Government Registration</span>
+          <span class="feature-flag">Live Issuance · Software Partnerships</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- PROJECTS -->
+      <div style="margin-bottom: 48px;">
+        <div style="display:flex; align-items:center; gap: 16px; margin-bottom: 20px;">
+          <span class="badge badge-gold">SECTION 04</span>
+          <div class="tech-name" style="font-size:18px;">PROJECTS — FLOATING 3D CARD GALLERY</div>
+        </div>
+        <div style="margin-bottom: 24px;">
+          <div class="project-list">
+            <div class="project-item">
+              <div class="project-dot" style="background:var(--gold)"></div>
+              <div>
+                <div class="project-name">Divinoft Developers</div>
+                <div class="project-url">Custom Development Agency Platform</div>
+              </div>
+              <div class="project-tech">
+                <span class="tag tag-gold">MERN</span><span class="tag tag-cyan">React</span>
+              </div>
+            </div>
+            <div class="project-item">
+              <div class="project-dot" style="background:var(--cyan)"></div>
+              <div>
+                <div class="project-name">Preethi Kaps Psychology</div>
+                <div class="project-url">preethikapsychologywellness.com</div>
+              </div>
+              <div class="project-tech">
+                <span class="tag tag-cyan">Next.js</span><span class="tag tag-green">Psychology Portal</span>
+              </div>
+            </div>
+            <div class="project-item">
+              <div class="project-dot" style="background:var(--purple)"></div>
+              <div>
+                <div class="project-name">Accountique</div>
+                <div class="project-url">accountique.in</div>
+              </div>
+              <div class="project-tech">
+                <span class="tag tag-purple">FinTech</span><span class="tag tag-gold">MERN</span>
+              </div>
+            </div>
+            <div class="project-item">
+              <div class="project-dot" style="background:var(--green)"></div>
+              <div>
+                <div class="project-name">SVS DigiCorp / SVS Digisign</div>
+                <div class="project-url">Digital Compliance Services Platform</div>
+              </div>
+              <div class="project-tech">
+                <span class="tag tag-green">DSC</span><span class="tag tag-gold">Gov Tech</span>
+              </div>
+            </div>
+            <div class="project-item">
+              <div class="project-dot" style="background:var(--coral)"></div>
+              <div>
+                <div class="project-name">SPD DigiCorp</div>
+                <div class="project-url">spddigicorp.in · Tirunelveli–Nagercoil Region</div>
+              </div>
+              <div class="project-tech">
+                <span class="tag tag-gold">DigiCorp</span><span class="tag tag-cyan">Live Issuance</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="wireframe">
+          <div class="wireframe-header">
+            <span class="wireframe-label">3D Card Gallery Animation</span>
+            <span class="tag tag-gold">Three.js + Anime.js</span>
+          </div>
+          <div class="wireframe-body">
+            <div class="wf-row">
+              <div style="flex:1">
+                <div class="timeline">
+                  <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-title">Floating Card Stack</div>
+                    <div class="timeline-body">Cards rendered as Three.js Plane meshes with HTML texture
+                      (CSS3DRenderer). Float on Y axis with sine wave. Staggered delays create wave motion.</div>
+                  </div>
+                  <div class="timeline-item">
+                    <div class="timeline-dot cyan"></div>
+                    <div class="timeline-title">Card Flip on Hover</div>
+                    <div class="timeline-body">rotateY(180deg) via CSS transform + Motion One spring animation. Back
+                      side shows tech stack and live link CTA.</div>
+                  </div>
+                </div>
+              </div>
+              <div style="flex:1">
+                <div class="timeline">
+                  <div class="timeline-item">
+                    <div class="timeline-dot purple"></div>
+                    <div class="timeline-title">Project Focus Mode</div>
+                    <div class="timeline-body">Click a card: GSAP animates camera to face that card, others scale down
+                      to 0.4 opacity. Backdrop blur intensifies. ESC to exit.</div>
+                  </div>
+                  <div class="timeline-item">
+                    <div class="timeline-dot green"></div>
+                    <div class="timeline-title">Horizontal Scroll Track</div>
+                    <div class="timeline-body">GSAP ScrollTrigger pin + horizontal translate. Scroll down = projects
+                      move left. Progress indicator below. Snap to each card.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- EXPERIENCE -->
+      <div style="margin-bottom: 48px;">
+        <div style="display:flex; align-items:center; gap: 16px; margin-bottom: 20px;">
+          <span class="badge badge-cyan">SECTION 05</span>
+          <div class="tech-name" style="font-size:18px;">EXPERIENCE — TIMELINE VORTEX</div>
+        </div>
+        <div class="card">
+          <div class="card-title">3D Vertical Timeline with SVG Path Animation</div>
+          <div class="card-body" style="margin-bottom:16px">A glowing vertical timeline where SVG stroke-dashoffset
+            animates as user scrolls, drawing the connecting line in real-time. Each milestone node pulses and expands
+            when it enters the viewport via IntersectionObserver + Anime.js stagger.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <span class="feature-flag">SVG Path drawing on scroll</span>
+            <span class="feature-flag">Anime.js node pulse entrance</span>
+            <span class="feature-flag">VengeanceUI glass cards</span>
+            <span class="feature-flag">Parallax background grid</span>
+            <span class="feature-flag">Gold connector line</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- CONTACT -->
+      <div style="margin-bottom: 48px;">
+        <div style="display:flex; align-items:center; gap: 16px; margin-bottom: 20px;">
+          <span class="badge badge-green">SECTION 06</span>
+          <div class="tech-name" style="font-size:18px;">CONTACT — TRANSMISSION TERMINAL</div>
+        </div>
+        <div class="card-grid card-grid-2">
+          <div class="card">
+            <div class="card-title">Contact Form — VengeanceUI Terminal</div>
+            <div class="card-body">Styled as a data-entry terminal. Input fields with scanline effect. Typing triggers
+              character count display. Submit fires a particle burst animation via Anime.js. Form validation shows
+              glitch-error states.</div>
+            <div class="card-tags">
+              <span class="tag tag-cyan">Terminal UI</span>
+              <span class="tag tag-gold">Particle burst</span>
+              <span class="tag tag-purple">Motion validation</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">3D Globe Contact Map</div>
+            <div class="card-body">Three.js sphere with latitude/longitude dot for Tamil Nadu. Glow pulse on location
+              marker. Rotation pauses on hover. Shows Tirunelveli, Tenkasi, Tuticorin, Nagercoil regions highlighted.
+            </div>
+            <div class="card-tags">
+              <span class="tag tag-cyan">Three.js Globe</span>
+              <span class="tag tag-gold">Location Pulse</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────── 04 ANIMATIONS ─────────────────────────────── -->
+    <section class="section anchor" id="animations">
+      <div class="section-eyebrow">04 — Animation Strategy</div>
+      <h2 class="section-title">MOTION BLUEPRINT</h2>
+      <p class="section-desc">Every animation has a purpose. This is the complete choreography guide — what moves, when,
+        how fast, and why.</p>
+
+      <div class="card-grid card-grid-2" style="margin-bottom:40px">
+        <div class="card">
+          <div class="card-title">Page Load Sequence — 0ms to 3000ms</div>
+          <div class="timeline" style="margin-top:20px;">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-title">0ms — WebGL Canvas Init</div>
+              <div class="timeline-body">Three.js renderer creates, particles spawn at random with opacity 0</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot cyan"></div>
+              <div class="timeline-title">300ms — Particle Fade In</div>
+              <div class="timeline-body">Anime.js animates particle opacity 0→1 with stagger(5ms)</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-title">800ms — Name Reveal</div>
+              <div class="timeline-body">SplitText characters slide up with stagger 40ms, easeOutExpo</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot purple"></div>
+              <div class="timeline-title">1400ms — Typewriter Subtitle</div>
+              <div class="timeline-body">Anime.js types "Full Stack Developer" character by character</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot green"></div>
+              <div class="timeline-title">2000ms — CTA Buttons</div>
+              <div class="timeline-body">Motion One springs buttons into view from scale(0.8) opacity(0)</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-title">2800ms — Scroll Hint</div>
+              <div class="timeline-body">Bouncing arrow fades in with CSS keyframe loop</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Scroll Trigger Map — Section Reveals</div>
+          <div class="timeline" style="margin-top:20px;">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-title">About — Slide + Fade</div>
+              <div class="timeline-body">Left column slides from x:-80px, right from x:+80px. Both opacity 0→1. Trigger:
+                top 80% viewport.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot cyan"></div>
+              <div class="timeline-title">Skills — Scale Pulse</div>
+              <div class="timeline-body">Skill tags scale from 0.7 with stagger 30ms. Sphere starts rotating when
+                pinned. Progress bars fill on entry.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot purple"></div>
+              <div class="timeline-title">Projects — Horizontal Pin</div>
+              <div class="timeline-body">Section pins, cards translate -100vw per item as scroll progresses. GSAP
+                scrub:1.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-title">Stats — Number Increment</div>
+              <div class="timeline-body">Anime.js counts from 0 to final value over 1800ms easeOutQuart. Triggers once
+                per IntersectionObserver.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot green"></div>
+              <div class="timeline-title">Timeline — SVG Draw</div>
+              <div class="timeline-body">stroke-dashoffset tied to scrollY via GSAP. Line draws as viewport descends.
+                Node circles scale in at their y-position threshold.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-eyebrow" style="margin-bottom:20px">Micro-Interactions</div>
+      <div class="interaction-grid">
+        <div class="interaction-card">
+          <span class="interaction-symbol">🖱️</span>
+          <div class="interaction-name">Magnetic Cursor</div>
+          <div class="interaction-lib">VANILLA JS + CSS</div>
+          <div class="card-body" style="font-size:12px;margin-top:8px">Custom cursor morphs shape on hover over links
+            and buttons. Gold dot with trailing ring.</div>
+        </div>
+        <div class="interaction-card">
+          <span class="interaction-symbol">🃏</span>
+          <div class="interaction-name">Card Tilt 3D</div>
+          <div class="interaction-lib">TILT.JS + CSS3</div>
+          <div class="card-body" style="font-size:12px;margin-top:8px">Mouse position maps to rotateX/rotateY ±15°.
+            Glare layer slides across card surface.</div>
+        </div>
+        <div class="interaction-card">
+          <span class="interaction-symbol">⌨️</span>
+          <div class="interaction-name">Glitch Text</div>
+          <div class="interaction-lib">ANIME.JS</div>
+          <div class="card-body" style="font-size:12px;margin-top:8px">Name randomly cycles through ASCII chars before
+            resolving. Triggered on hover and on load.</div>
+        </div>
+        <div class="interaction-card">
+          <span class="interaction-symbol">🔘</span>
+          <div class="interaction-name">Button Ripple</div>
+          <div class="interaction-lib">MOTION ONE</div>
+          <div class="card-body" style="font-size:12px;margin-top:8px">Click spawns radial particle burst from cursor
+            position. Scale + fade keyframe in Anime.js.</div>
+        </div>
+        <div class="interaction-card">
+          <span class="interaction-symbol">📊</span>
+          <div class="interaction-name">Skill Bar Fill</div>
+          <div class="interaction-lib">ANIME.JS</div>
+          <div class="card-body" style="font-size:12px;margin-top:8px">Width animates 0→% when section enters viewport.
+            Neon glow on the bar-fill edge.</div>
+        </div>
+        <div class="interaction-card">
+          <span class="interaction-symbol">🌐</span>
+          <div class="interaction-name">Nav Blur Scroll</div>
+          <div class="interaction-lib">GSAP + CSS</div>
+          <div class="card-body" style="font-size:12px;margin-top:8px">Navbar transitions backdrop-filter:
+            blur(0)→blur(16px) after 80px scroll. Border fades in.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────── 05 PALETTE ─────────────────────────────── -->
+    <section class="section anchor" id="palette">
+      <div class="section-eyebrow">05 — Visual Language</div>
+      <h2 class="section-title">COLOR PALETTE</h2>
+      <p class="section-desc">A dark cosmic foundation with gold authority and cyan energy — commanding, technical,
+        unforgettable.</p>
+
+      <div class="palette-row">
+        <div class="swatch" style="background:#050C1A; color:#C9A84C;">
+          <div class="swatch-name">COSMIC VOID</div>
+          <div class="swatch-hex">#050C1A</div>
+        </div>
+        <div class="swatch" style="background:#0D1A30; color:#C9A84C;">
+          <div class="swatch-name">DEEP NAVY</div>
+          <div class="swatch-hex">#0D1A30</div>
+        </div>
+        <div class="swatch" style="background:#162240; color:#C9A84C;">
+          <div class="swatch-name">ABYSS BLUE</div>
+          <div class="swatch-hex">#162240</div>
+        </div>
+        <div class="swatch" style="background:#C9A84C; color:#050C1A;">
+          <div class="swatch-name">GOLD PRIME</div>
+          <div class="swatch-hex">#C9A84C</div>
+        </div>
+        <div class="swatch" style="background:#E8C96A; color:#050C1A;">
+          <div class="swatch-name">GOLD LIGHT</div>
+          <div class="swatch-hex">#E8C96A</div>
+        </div>
+      </div>
+      <div class="palette-row">
+        <div class="swatch" style="background:#00D4FF; color:#050C1A;">
+          <div class="swatch-name">CYAN PULSE</div>
+          <div class="swatch-hex">#00D4FF</div>
+        </div>
+        <div class="swatch" style="background:#007A9A; color:#E0EDF2;">
+          <div class="swatch-name">CYAN DEEP</div>
+          <div class="swatch-hex">#007A9A</div>
+        </div>
+        <div class="swatch" style="background:#8B5CF6; color:#EEE9FF;">
+          <div class="swatch-name">VOID PURPLE</div>
+          <div class="swatch-hex">#8B5CF6</div>
+        </div>
+        <div class="swatch" style="background:#10B981; color:#030F07;">
+          <div class="swatch-name">DATA GREEN</div>
+          <div class="swatch-hex">#10B981</div>
+        </div>
+        <div class="swatch" style="background:#F0EDE4; color:#050C1A;">
+          <div class="swatch-name">GHOST WHITE</div>
+          <div class="swatch-hex">#F0EDE4</div>
+        </div>
+      </div>
+
+      <div class="card-grid card-grid-3" style="margin-top:32px">
+        <div class="card">
+          <div class="card-title">Primary Palette Usage</div>
+          <div class="card-body">
+            <strong style="color:var(--gold)">Gold (#C9A84C)</strong> — Name, headings, accent borders, CTAs, active
+            states<br><br>
+            <strong style="color:var(--navy)">Navy (#050C1A)</strong> — All backgrounds, body, canvas fills<br><br>
+            <strong style="color:var(--white)">Ghost White (#F0EDE4)</strong> — Body text, card text, secondary headings
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Accent Palette Usage</div>
+          <div class="card-body">
+            <strong style="color:var(--cyan)">Cyan (#00D4FF)</strong> — Tech tags, skill bars, 3D sphere accents, links
+            on hover<br><br>
+            <strong style="color:var(--purple)">Purple (#8B5CF6)</strong> — VengeanceUI components, category 3
+            skills<br><br>
+            <strong style="color:var(--green)">Green (#10B981)</strong> — Success states, online indicator, Python
+            category
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Three.js Material Colors</div>
+          <div class="card-body">
+            <strong style="color:var(--gold)">Particle Gold</strong> — 60% of particles at hex 0xC9A84C<br><br>
+            <strong style="color:var(--cyan)">Particle Cyan</strong> — 30% of particles at hex 0x00D4FF<br><br>
+            <strong style="color:var(--muted)">Particle Dim</strong> — 10% of particles at hex 0x8892AA<br><br>
+            Emissive glow: MeshStandardMaterial emissive intensity 0.4
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────── 06 TYPOGRAPHY ─────────────────────────────── -->
+    <section class="section anchor" id="typography">
+      <div class="section-eyebrow">06 — Typography System</div>
+      <h2 class="section-title">TYPE HIERARCHY</h2>
+      <p class="section-desc">Four typefaces, each with a specific structural role — creating a complete typographic
+        personality.</p>
+
+      <div class="type-demo">
+        <div class="type-label">DISPLAY — Bebas Neue — Hero Names, Section Titles</div>
+        <div class="font-bebas" style="font-size:56px;color:var(--white);letter-spacing:0.04em;line-height:1">
+          ILAYABHARATHI</div>
+        <div class="font-bebas" style="font-size:32px;color:var(--gold);letter-spacing:0.04em">Full Stack Developer
+        </div>
+      </div>
+      <div class="type-demo">
+        <div class="type-label">INTERFACE — Rajdhani — Section Headers, Card Titles, Nav</div>
+        <div class="font-rajdhani"
+          style="font-size:24px;font-weight:700;color:var(--white);letter-spacing:0.08em;text-transform:uppercase">MERN
+          STACK · PYTHON · DIGITAL COMPLIANCE</div>
+        <div class="font-rajdhani"
+          style="font-size:17px;font-weight:500;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase">
+          Building Digital Futures · Tamil Nadu</div>
+      </div>
+      <div class="type-demo">
+        <div class="type-label">BODY — Outfit — Paragraphs, Descriptions, Card Body</div>
+        <div class="font-outfit" style="font-size:15px;color:var(--white);line-height:1.8">Full Stack Developer
+          specialising in MERN and Python, building high-performance digital products for clients across Tamil Nadu —
+          from DSC and government registration services to modern web platforms and SaaS products.</div>
+      </div>
+      <div class="type-demo">
+        <div class="type-label">CODE / DATA — Space Mono — Tags, Tech Labels, Code Snippets, Eyebrows</div>
+        <div class="font-mono" style="font-size:13px;color:var(--gold);letter-spacing:0.1em">01 — CREATIVE VISION · 02 —
+          TECH STACK · 03 — PROJECTS</div>
+        <div class="font-mono" style="font-size:11px;color:var(--muted);margin-top:8px">const dev = { stack: 'MERN',
+          location: 'Tamil Nadu', available: true };</div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────── 07 PERFORMANCE ─────────────────────────────── -->
+    <section class="section anchor" id="performance">
+      <div class="section-eyebrow">07 — Performance Strategy</div>
+      <h2 class="section-title">SPEED + QUALITY</h2>
+      <p class="section-desc">Heavy animation stacks can destroy UX. These strategies ensure cinematic visuals with
+        production-grade performance.</p>
+
+      <div class="perf-item">
+        <div class="perf-score score-green">60</div>
+        <div>
+          <div class="perf-title">FPS Target — Locked 60fps</div>
+          <div class="perf-desc">Three.js RAF loop uses delta time. All CSS animations use transform/opacity only (GPU
+            composited). No layout-triggering properties animated.</div>
+        </div>
+      </div>
+      <div class="perf-item">
+        <div class="perf-score score-gold">90</div>
+        <div>
+          <div class="perf-title">Lighthouse Performance Score Target</div>
+          <div class="perf-desc">Three.js loaded lazily after LCP. Anime.js tree-shaken. GSAP plugins imported
+            individually. Hero canvas only renders in viewport. Off-screen objects paused.</div>
+        </div>
+      </div>
+      <div class="perf-item">
+        <div class="perf-score score-cyan">3D</div>
+        <div>
+          <div class="perf-title">WebGL Optimization Strategy</div>
+          <div class="perf-desc">BufferGeometry over Geometry. Single PointsMaterial for all particles. Frustum culling
+            enabled. Dispose renderer on component unmount. Pixel ratio capped at 2.</div>
+        </div>
+      </div>
+      <div class="perf-item">
+        <div class="perf-score score-gold">A11</div>
+        <div>
+          <div class="perf-title">Accessibility + Reduced Motion</div>
+          <div class="perf-desc">@media (prefers-reduced-motion: reduce) disables all parallax and entrance animations.
+            Canvas replaced with static gradient. All animations respect OS preference.</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 32px;">
+        <div class="code-block">
+          <span class="cm">// Three.js Performance Setup — Hero Canvas</span>
+          <span class="kw">const</span> renderer = <span class="kw">new</span> <span
+            class="fn">THREE.WebGLRenderer</span>({
+          canvas: heroCanvas,
+          antialias: <span class="kw">false</span>, <span class="cm">// OFF on mobile for perf</span>
+          powerPreference: <span class="str">'high-performance'</span>,
+          alpha: <span class="kw">true</span>
+          });
+          renderer.setPixelRatio(<span class="fn">Math.min</span>(window.devicePixelRatio, <span class="num">2</span>));
+
+          <span class="cm">// Lazy load Three.js after hero LCP</span>
+          <span class="kw">const</span> loadThree = <span class="kw">async</span> () => {
+          <span class="kw">const</span> { <span class="fn">initHeroScene</span> } = <span class="kw">await</span> <span
+            class="fn">import</span>(<span class="str">'./hero3d.js'</span>);
+          <span class="fn">initHeroScene</span>(renderer);
+          };
+          window.<span class="fn">addEventListener</span>(<span class="str">'load'</span>, loadThree);
+        </div>
+        <div class="code-block">
+          <span class="cm">// Anime.js — Section Entrance (Scroll Triggered)</span>
+          <span class="kw">const</span> observer = <span class="kw">new</span> <span
+            class="fn">IntersectionObserver</span>((entries) => {
+          entries.<span class="fn">forEach</span>(entry => {
+          <span class="kw">if</span> (entry.isIntersecting) {
+          anime({
+          targets: entry.target.<span class="fn">querySelectorAll</span>(<span class="str">'.reveal'</span>),
+          translateY: [<span class="num">40</span>, <span class="num">0</span>],
+          opacity: [<span class="num">0</span>, <span class="num">1</span>],
+          duration: <span class="num">800</span>,
+          delay: anime.<span class="fn">stagger</span>(<span class="num">80</span>),
+          easing: <span class="str">'easeOutExpo'</span>
+          });
+          observer.<span class="fn">unobserve</span>(entry.target);
+          }
+          });
+          }, { threshold: <span class="num">0.15</span> });
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────────────────────────── 08 ARCHITECTURE ─────────────────────────────── -->
+    <section class="section anchor" id="architecture">
+      <div class="section-eyebrow">08 — Technical Architecture</div>
+      <h2 class="section-title">BUILD ARCHITECTURE</h2>
+      <p class="section-desc">The recommended project structure, dependency list, and rendering pipeline for building
+        this portfolio.</p>
+
+      <div class="card-grid card-grid-2">
+        <div class="card">
+          <div class="card-title">Recommended Tech Foundation</div>
+          <div class="card-body">
+            <div class="card-tags" style="flex-direction:column; gap:8px; align-items:flex-start;">
+              <span><span class="tag tag-gold">Framework</span> <span
+                  style="color:var(--white);font-size:13px;margin-left:8px">Next.js 14 (App Router)</span></span>
+              <span><span class="tag tag-cyan">3D</span> <span
+                  style="color:var(--white);font-size:13px;margin-left:8px">Three.js + React Three Fiber</span></span>
+              <span><span class="tag tag-purple">Scroll</span> <span
+                  style="color:var(--white);font-size:13px;margin-left:8px">GSAP 3 + ScrollTrigger Plugin</span></span>
+              <span><span class="tag tag-gold">Anim</span> <span
+                  style="color:var(--white);font-size:13px;margin-left:8px">Anime.js 3.2 + Motion One</span></span>
+              <span><span class="tag tag-green">Parallax</span> <span
+                  style="color:var(--white);font-size:13px;margin-left:8px">Rellax.js + Tilt.js</span></span>
+              <span><span class="tag tag-muted">UI Kit</span> <span
+                  style="color:var(--white);font-size:13px;margin-left:8px">VengeanceUI + Tailwind CSS</span></span>
+              <span><span class="tag tag-cyan">Deploy</span> <span
+                  style="color:var(--white);font-size:13px;margin-left:8px">Vercel / Netlify (Edge)</span></span>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">File Structure</div>
+          <div class="code-block" style="font-size:11px;padding:16px;background:#020710;border:none;margin:0">
+            src/<br>
+            ├── <span class="hl">app/</span> (Next.js pages)<br>
+            ├── <span class="hl-cyan">components/</span><br>
+            │ ├── hero/ (Hero3DCanvas.jsx)<br>
+            │ ├── about/ (HologramRing.jsx)<br>
+            │ ├── skills/ (SkillSphere.jsx)<br>
+            │ ├── projects/ (Card3DGallery.jsx)<br>
+            │ └── contact/ (GlobeContact.jsx)<br>
+            ├── <span class="hl-purple">three/</span><br>
+            │ ├── scenes/ (hero.js, globe.js)<br>
+            │ └── shaders/ (particle.glsl)<br>
+            ├── <span class="hl">animations/</span><br>
+            │ ├── animeTimelines.js<br>
+            │ ├── gsapScrollTriggers.js<br>
+            │ └── motionVariants.js<br>
+            └── <span class="hl-cyan">styles/</span> (globals, vengeance.css)
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 32px;">
+        <div class="section-eyebrow" style="margin-bottom:20px">Development Phases</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-title">Phase 1 — Base Setup (Week 1)</div>
+            <div class="timeline-body">Next.js project init, install Three.js/R3F, GSAP, Anime.js, Motion One. Set up
+              Tailwind + CSS variables. Build navbar and layout skeleton. Implement custom gold cursor.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot cyan"></div>
+            <div class="timeline-title">Phase 2 — Hero 3D Scene (Week 1-2)</div>
+            <div class="timeline-body">Build particle galaxy with BufferGeometry. Add mouse parallax camera. Implement
+              Anime.js name reveal + typewriter. GSAP scroll camera pull-back. Geometric floating wireframes.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot purple"></div>
+            <div class="timeline-title">Phase 3 — All Sections (Week 2-3)</div>
+            <div class="timeline-body">Build About hologram ring, Skills sphere, Projects horizontal scroll with 3D
+              cards, Timeline SVG draw, Contact globe. Wire up all GSAP ScrollTriggers.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot green"></div>
+            <div class="timeline-title">Phase 4 — Polish + VengeanceUI (Week 3)</div>
+            <div class="timeline-body">Integrate VengeanceUI glass components and scanline effects. Fine-tune all
+              Anime.js timelines. Add micro-interactions, magnetic cursor, and card tilt effects.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-title">Phase 5 — Performance + Launch (Week 4)</div>
+            <div class="timeline-body">Lighthouse audit, Three.js optimizations, lazy loading, reduced motion support.
+              Mobile responsiveness check. Deploy to Vercel. SEO meta + OG tags.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FINAL SUMMARY -->
+      <div
+        style="margin-top:48px; background: linear-gradient(135deg, rgba(201,168,76,0.06), rgba(0,212,255,0.03)); border: 1px solid var(--gold-dim); border-radius: 4px; padding: 40px;">
+        <div class="section-eyebrow" style="margin-bottom:16px">FINAL DELIVERABLE SUMMARY</div>
+        <h3 class="font-bebas" style="font-size:28px; color:var(--white); letter-spacing:0.04em; margin-bottom:20px">
+          WHAT THE VISITOR EXPERIENCES</h3>
+        <div class="card-grid card-grid-3" style="gap:12px">
+          <div
+            style="padding:16px; background:rgba(5,12,26,0.8); border:1px solid var(--navy-border); border-radius:3px;">
+            <div class="tag tag-gold" style="margin-bottom:12px">ARRIVAL</div>
+            <div class="card-body" style="font-size:13px">WebGL galaxy loads instantly. Name explodes onto screen
+              character by character. Gold particles swirl around the title.</div>
+          </div>
+          <div
+            style="padding:16px; background:rgba(5,12,26,0.8); border:1px solid var(--navy-border); border-radius:3px;">
+            <div class="tag tag-cyan" style="margin-bottom:12px">SCROLL</div>
+            <div class="card-body" style="font-size:13px">Every scroll triggers a cinematic reveal. Elements enter from
+              different angles. 3D cards float. Timeline draws itself. Globe spins.</div>
+          </div>
+          <div
+            style="padding:16px; background:rgba(5,12,26,0.8); border:1px solid var(--navy-border); border-radius:3px;">
+            <div class="tag tag-purple" style="margin-bottom:12px">INTERACT</div>
+            <div class="card-body" style="font-size:13px">Cursor leaves a gold trail. Cards tilt 3D to mouse. Buttons
+              repel the cursor. Clicking projects zooms the camera. Text glitches on hover.</div>
+          </div>
+          <div
+            style="padding:16px; background:rgba(5,12,26,0.8); border:1px solid var(--navy-border); border-radius:3px;">
+            <div class="tag tag-green" style="margin-bottom:12px">FEEL</div>
+            <div class="card-body" style="font-size:13px">Spatial depth from 5 parallax layers. Physical weight in
+              spring animations. Darkness punctuated by purposeful gold and cyan light.</div>
+          </div>
+          <div
+            style="padding:16px; background:rgba(5,12,26,0.8); border:1px solid var(--navy-border); border-radius:3px;">
+            <div class="tag tag-gold" style="margin-bottom:12px">TRUST</div>
+            <div class="card-body" style="font-size:13px">Live project links to Accountique, Preethi Kaps, SPD DigiCorp.
+              Real stats, real regions, real expertise — wrapped in premium presentation.</div>
+          </div>
+          <div
+            style="padding:16px; background:rgba(5,12,26,0.8); border:1px solid var(--navy-border); border-radius:3px;">
+            <div class="tag tag-coral" style="margin-bottom:12px">RESULT</div>
+            <div class="card-body" style="font-size:13px">A recruiter or client who lands here will not forget it. The
+              portfolio IS the proof of skill — not just a list of projects.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer
+    style="background:var(--navy-2); border-top:1px solid var(--navy-border); padding:32px 60px; margin-top:40px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+    <div>
+      <div class="font-bebas" style="font-size:20px; color:var(--gold); letter-spacing:0.06em">ILAYABHARATHI — PORTFOLIO
+        DESIGN PLAN</div>
+      <div class="font-mono" style="font-size:10px; color:var(--muted); margin-top:4px; letter-spacing:0.1em">VERSION
+        1.0 · NEXTGEN 3D PORTFOLIO · MERN &amp; PYTHON DEVELOPER</div>
+    </div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+      <span class="tag tag-gold">Three.js</span>
+      <span class="tag tag-cyan">Anime.js</span>
+      <span class="tag tag-purple">GSAP</span>
+      <span class="tag tag-green">Motion One</span>
+      <span class="tag tag-muted">VengeanceUI</span>
+      <span class="tag tag-gold">Parallax</span>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll progress bar
+    const prog = document.getElementById('prog');
+    window.addEventListener('scroll', () => {
+      const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      prog.style.width = pct + '%';
+    });
+
+    // TOC scroll
+    function scrollTo(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // TOC active state
+    const sections = ['vision', 'techstack', 'sections', 'animations', 'palette', 'typography', 'performance', 'architecture'];
+    const tocItems = document.querySelectorAll('.toc-item');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          tocItems.forEach(t => t.classList.remove('active'));
+          const idx = sections.indexOf(e.target.id);
+          if (idx > -1) tocItems[idx].classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+    sections.forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
+  </script>
+</body>
+
+</html>
