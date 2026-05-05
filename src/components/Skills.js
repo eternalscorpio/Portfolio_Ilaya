@@ -89,7 +89,6 @@ function TagSphere() {
         width: '350px',
         height: '350px',
         margin: '0 auto',
-        perspective: '600px',
       }}
     >
       {/* Glow ring behind sphere */}
@@ -233,10 +232,7 @@ export default function Skills() {
         </div>
 
         {/* Data terminal header */}
-        <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '12px', marginBottom: '48px',
-        }}>
+        <div className="grid-4col skills-terminals" style={{ marginBottom: '48px' }}>
           <div className={`reveal-scale ${visible ? 'visible' : ''}`} style={{ transitionDelay: '0.3s' }}>
             <DataTerminal label="Technologies" value="15+" color="var(--gold)" icon="◆" />
           </div>
@@ -251,12 +247,7 @@ export default function Skills() {
           </div>
         </div>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '48px',
-          alignItems: 'start',
-        }}>
+        <div className="grid-2col">
           {/* Tag Sphere */}
           <div className={`reveal-scale ${visible ? 'visible' : ''}`}
             style={{ transitionDelay: '0.3s' }}>

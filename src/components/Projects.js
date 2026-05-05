@@ -314,17 +314,12 @@ export default function Projects() {
         <ScanDivider />
 
         {/* Project grid — Staggered masonry-like */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: '24px',
-        }}>
+        <div className="grid-projects">
           {projects.map((project, index) => (
             <div
               key={project.id}
-              style={{
-                marginTop: index % 2 === 1 ? '48px' : '0',
-              }}
+              style={{ marginTop: index % 2 === 1 ? '48px' : '0' }}
+              className={index % 2 === 1 ? 'project-stagger' : ''}
             >
               <ImmersiveCard project={project} index={index} />
             </div>
@@ -363,12 +358,7 @@ export default function Projects() {
 
       <style jsx>{`
         @media (max-width: 768px) {
-          div[style*="gridTemplateColumns: repeat(2, 1fr)"] {
-            grid-template-columns: 1fr !important;
-          }
-          div[style*="marginTop: index"] {
-            margin-top: 0 !important;
-          }
+          .project-stagger { margin-top: 0 !important; }
         }
       `}</style>
     </section>

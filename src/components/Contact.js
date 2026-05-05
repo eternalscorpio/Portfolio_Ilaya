@@ -349,33 +349,17 @@ export default function Contact() {
           </p>
         </div>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1.3fr 1fr',
-          gap: '32px',
-          alignItems: 'start',
-        }}>
-          {/* Terminal Form */}
-          <div className={`reveal-left ${visible ? 'visible' : ''}`}
-            style={{ transitionDelay: '0.3s' }}>
+        <div className="grid-contact">
+          <div className={`reveal-left ${visible ? 'visible' : ''}`} style={{ transitionDelay: '0.3s' }}>
             <TerminalForm />
           </div>
-
-          {/* Contact Info */}
-          <div className={`reveal-right ${visible ? 'visible' : ''}`}
-            style={{ transitionDelay: '0.5s' }}>
+          <div className={`reveal-right ${visible ? 'visible' : ''}`} style={{ transitionDelay: '0.5s' }}>
             <ContactInfoPanel />
           </div>
         </div>
       </div>
 
-      <style jsx>{`
-        @media (max-width: 768px) {
-          div[style*="gridTemplateColumns: 1.3fr 1fr"] {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
+
     </section>
   );
 }

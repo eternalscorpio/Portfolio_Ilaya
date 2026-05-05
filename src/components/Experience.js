@@ -95,20 +95,10 @@ function TimelineNode({ experience, index, isLast }) {
   return (
     <div
       ref={nodeRef}
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 60px 1fr',
-        gap: '0',
-        marginBottom: isLast ? '0' : '32px',
-        position: 'relative',
-      }}
+      className="grid-timeline"
+      style={{ marginBottom: isLast ? '0' : '32px' }}
     >
-      {/* Left content or empty */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        paddingRight: '24px',
-      }}>
+      <div className="grid-timeline-left" style={{ display: 'flex', justifyContent: 'flex-end', paddingRight: '24px' }}>
         {isLeft && (
           <div
             onMouseEnter={() => setHovered(true)}
@@ -313,10 +303,7 @@ export default function Experience() {
         </div>
 
         {/* Data terminal header strip */}
-        <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '12px', marginBottom: '48px',
-        }}>
+        <div className="grid-3col-stats" style={{ marginBottom: '48px' }}>
           <div className={`reveal-scale ${visible ? 'visible' : ''}`} style={{ transitionDelay: '0.3s' }}>
             <DataTerminal label="Career Span" value="3Y+" color="var(--gold)" icon="◆" />
           </div>
@@ -346,7 +333,7 @@ export default function Experience() {
             <div className="section-eyebrow" style={{ justifyContent: 'center' }}>Hackathons</div>
             <div style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(24px, 3vw, 40px)', letterSpacing: '0.06em', color: 'var(--white)' }}>NASA SPACE APPS CHALLENGE</div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '24px' }}>
+          <div className="grid-hackathon">
             {hackathons[0].entries.map((entry, i) => (
               <div key={i} className={`reveal ${visible ? 'visible' : ''}`} style={{ transitionDelay: `${0.3 + i * 0.2}s` }}>
                 <div style={{ position: 'relative', background: 'rgba(13, 26, 48, 0.5)', border: `1px solid ${entry.color}30`, padding: '28px', backdropFilter: 'blur(12px)' }}>
@@ -368,7 +355,7 @@ export default function Experience() {
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>
             {communityRoles.map((role, i) => (
-              <div key={i} className={`reveal-scale ${visible ? 'visible' : ''}`} style={{ transitionDelay: `${0.2 + i * 0.15}s`, flex: '1', minWidth: '220px', maxWidth: '320px', background: 'rgba(13,26,48,0.5)', border: `1px solid ${role.color}25`, padding: '20px 24px', position: 'relative' }}>
+              <div key={i} className={`reveal-scale community-card ${visible ? 'visible' : ''}`} style={{ transitionDelay: `${0.2 + i * 0.15}s`, flex: '1', minWidth: '220px', maxWidth: '320px', background: 'rgba(13,26,48,0.5)', border: `1px solid ${role.color}25`, padding: '20px 24px', position: 'relative' }}>
                 <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: `linear-gradient(90deg, transparent, ${role.color}60, transparent)` }} />
                 <div style={{ fontFamily: 'var(--font-interface)', fontWeight: 700, fontSize: '13px', color: 'var(--white)', marginBottom: '4px' }}>{role.role}</div>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: role.color, marginBottom: '4px' }}>{role.org}</div>
@@ -381,12 +368,13 @@ export default function Experience() {
 
       <style jsx>{`
         @media (max-width: 768px) {
-          div[style*="gridTemplateColumns: 1fr 60px 1fr"] {
-            grid-template-columns: 20px 1fr !important;
-          }
-          div[style*="gridTemplateColumns: repeat(3"] {
-            grid-template-columns: 1fr !important;
-          }
+          .grid-timeline { grid-template-columns: 20px 1fr !important; }
+          .grid-timeline-left { display: none !important; }
+          .grid-3col-stats { grid-template-columns: repeat(3, 1fr) !important; }
+          .community-card { min-width: unset !important; max-width: 100% !important; }
+        }
+        @media (max-width: 480px) {
+          .grid-3col-stats { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

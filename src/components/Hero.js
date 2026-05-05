@@ -107,15 +107,11 @@ function Typewriter({ words, speed = 70, deleteSpeed = 35, pause = 2500 }) {
 /* ─── ORBITING TEXT RING ─── */
 function OrbitingText() {
   return (
-    <div style={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
+    <div className="orbit-ring" style={{
+      position: 'absolute', top: '50%', left: '50%',
       transform: 'translate(-50%, -50%)',
-      width: '550px',
-      height: '550px',
-      opacity: 0.15,
-      pointerEvents: 'none',
+      width: '550px', height: '550px',
+      opacity: 0.15, pointerEvents: 'none',
     }}>
       <div style={{ animation: 'rotate 30s linear infinite' }}>
         <CurvedText
@@ -216,7 +212,7 @@ export default function Hero() {
       <OrbitingText />
 
       {/* Decorative corner brackets */}
-      <div style={{
+      <div className="hero-corner" style={{
         position: 'absolute', top: '100px', left: '48px', zIndex: 2,
         width: '80px', height: '80px',
         borderTop: '1px solid rgba(201,168,76,0.2)',
@@ -225,7 +221,7 @@ export default function Hero() {
         transition: 'opacity 1s ease 2s',
         transform: `translate(${px * 0.3}px, ${py * 0.3}px)`,
       }} />
-      <div style={{
+      <div className="hero-corner" style={{
         position: 'absolute', bottom: '100px', right: '48px', zIndex: 2,
         width: '80px', height: '80px',
         borderBottom: '1px solid rgba(201,168,76,0.2)',
@@ -236,7 +232,7 @@ export default function Hero() {
       }} />
 
       {/* Side data readouts */}
-      <div style={{
+      <div className="hero-side-text" style={{
         position: 'absolute', left: '48px', top: '50%', transform: 'translateY(-50%)', zIndex: 2,
         writingMode: 'vertical-rl', textOrientation: 'mixed',
         fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.15em',
@@ -246,8 +242,7 @@ export default function Hero() {
       }}>
         SYS.PORTFOLIO — V2.0 — ACTIVE
       </div>
-
-      <div style={{
+      <div className="hero-side-text" style={{
         position: 'absolute', right: '48px', top: '50%', transform: 'translateY(-50%) rotate(180deg)', zIndex: 2,
         writingMode: 'vertical-rl', textOrientation: 'mixed',
         fontFamily: 'var(--font-mono)', fontSize: '9px', letterSpacing: '0.15em',
@@ -257,6 +252,7 @@ export default function Hero() {
       }}>
         MERN · PYTHON · DIGITAL ARCHITECT
       </div>
+
 
       {/* Main content */}
       <div style={{
